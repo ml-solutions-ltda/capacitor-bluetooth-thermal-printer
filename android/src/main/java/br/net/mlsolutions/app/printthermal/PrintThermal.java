@@ -54,25 +54,30 @@ public class PrintThermal {
     }
 
     public void printHtml(final String html, final String macAddress, final String logoBase64, final String qrCodeText, final PluginCall call) {
-        final WebView webView = new WebView(context);
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.layout(0, 0, 384, 6000);
-        webView.loadDataWithBaseURL(null, html, "text/html", "UTF-8", null);
+        Handler mainHandler = new Handler(Looper.getMainLooper());
 
-        webView.setWebViewClient(new WebViewClient() {
-            public void onPageFinished(WebView view, String url) {
-                webView.measure(View.MeasureSpec.makeMeasureSpec(384, View.MeasureSpec.EXACTLY),
-                        View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-                webView.layout(0, 0, 384, webView.getMeasuredHeight());
-                Bitmap bodyBitmap = Bitmap.createBitmap(webView.getMeasuredWidth(), webView.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
-                Canvas canvas = new Canvas(bodyBitmap);
-                webView.draw(canvas);
+        mainHandler.post(() -> {
+            final WebView webView = new WebView(context);
+            webView.getSettings().setJavaScriptEnabled(true);
+            webView.layout(0, 0, 384, 6000);
+            webView.loadDataWithBaseURL(null, html, "text/html", "UTF-8", null);
 
-                Bitmap finalBitmap = composePrintBitmap(logoBase64, bodyBitmap, qrCodeText);
-                sendToPrinter(macAddress, finalBitmap, call);
-            }
+            webView.setWebViewClient(new WebViewClient() {
+                public void onPageFinished(WebView view, String url) {
+                    webView.measure(View.MeasureSpec.makeMeasureSpec(384, View.MeasureSpec.EXACTLY),
+                            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+                    webView.layout(0, 0, 384, webView.getMeasuredHeight());
+                    Bitmap bodyBitmap = Bitmap.createBitmap(webView.getMeasuredWidth(), webView.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+                    Canvas canvas = new Canvas(bodyBitmap);
+                    webView.draw(canvas);
+
+                    Bitmap finalBitmap = composePrintBitmap(logoBase64, bodyBitmap, qrCodeText);
+                    sendToPrinter(macAddress, finalBitmap, call);
+                }
+            });
         });
     }
+
 
     private Bitmap composePrintBitmap(String logoBase64, Bitmap body, String qrText) {
         Bitmap logo = decodeBase64Image(logoBase64);
