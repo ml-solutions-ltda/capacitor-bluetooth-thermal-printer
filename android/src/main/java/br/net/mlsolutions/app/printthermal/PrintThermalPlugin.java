@@ -5,13 +5,16 @@ import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
 import com.getcapacitor.Plugin;
 
+import com.getcapacitor.JSObject;
+
+
 @CapacitorPlugin(name = "PrintThermal")
 public class PrintThermalPlugin extends Plugin {
 
     @PluginMethod
     public void listPrinters(PluginCall call) {
         PrintThermal printer = new PrintThermal(getContext());
-        JSObject result = printer.listPrinters();
+        JSObject result = printer.listPrinters(call);
 
         call.resolve(result);
     }

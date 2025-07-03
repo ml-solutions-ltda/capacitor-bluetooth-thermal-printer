@@ -20,6 +20,9 @@ import com.google.zxing.common.BitMatrix;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.util.UUID;
+import com.getcapacitor.JSObject;
+import com.getcapacitor.JSArray;
+import java.util.Set;
 
 public class PrintThermal {
     private final Context context;
@@ -28,11 +31,11 @@ public class PrintThermal {
         this.context = ctx;
     }
 
-    public void listPrinters(PluginCall call) {
+    public JSObject listPrinters(final PluginCall call) {
         BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
         if (adapter == null) {
             call.reject("Bluetooth não suportado");
-            return;
+            return null;
         }
 
         Set<BluetoothDevice> pairedDevices = adapter.getBondedDevices();
@@ -47,7 +50,7 @@ public class PrintThermal {
 
         JSObject result = new JSObject();
         result.put("devices", printers);
-        result result;
+        return result;
     }
 
     public void printHtml(final String html, final String macAddress, final String logoBase64, final String qrCodeText, final PluginCall call) {
