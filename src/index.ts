@@ -1,8 +1,8 @@
 import { registerPlugin } from '@capacitor/core';
 
-import type { PrintThermalPluginPlugin } from './definitions';
+import type { PrintThermalPlugin } from './definitions';
 
-const PrintThermalPlugin = registerPlugin<PrintThermalPluginPlugin>('PrintThermalPlugin', {
+const PrintThermalPlugin = registerPlugin<PrintThermalPlugin>('PrintThermalPlugin', {
   web: () => import('./web').then((m) => new m.PrintThermalPluginWeb()),
 });
 

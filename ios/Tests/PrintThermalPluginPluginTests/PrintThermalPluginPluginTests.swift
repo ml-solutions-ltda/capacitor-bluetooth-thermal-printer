@@ -1,5 +1,5 @@
 import XCTest
-@testable import PrintThermalPluginPlugin
+@testable import PrintThermalPlugin
 
 class PrintThermalPluginTests: XCTestCase {
     func testEcho() {

@@ -20,7 +20,7 @@ export interface ListPrintersResult {
   devices: Printer[];
 }
 
-export interface PrintThermalPluginPlugin {
+export interface PrintThermalPlugin {
   listPrinters(): Promise<ListPrintersResult>;
   print(options: PrintOptions): Promise<void>;
 }
