@@ -9,6 +9,14 @@ import com.getcapacitor.Plugin;
 public class PrintThermalPlugin extends Plugin {
 
     @PluginMethod
+    public void listPrinters(PluginCall call) {
+        PrintThermal printer = new PrintThermal(getContext());
+        JSObject result = printer.listPrinters();
+
+        call.resolve(result);
+    }
+
+    @PluginMethod
     public void print(PluginCall call) {
         // Chamar sua lógica de impressão real aqui
         String html = call.getString("html");

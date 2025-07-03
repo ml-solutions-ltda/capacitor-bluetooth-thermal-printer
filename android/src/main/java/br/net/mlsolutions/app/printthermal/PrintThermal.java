@@ -28,6 +28,28 @@ public class PrintThermal {
         this.context = ctx;
     }
 
+    public void listPrinters(PluginCall call) {
+        BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
+        if (adapter == null) {
+            call.reject("Bluetooth não suportado");
+            return;
+        }
+
+        Set<BluetoothDevice> pairedDevices = adapter.getBondedDevices();
+        JSArray printers = new JSArray();
+
+        for (BluetoothDevice device : pairedDevices) {
+            JSObject item = new JSObject();
+            item.put("name", device.getName());
+            item.put("address", device.getAddress());
+            printers.put(item);
+        }
+
+        JSObject result = new JSObject();
+        result.put("devices", printers);
+        result result;
+    }
+
     public void printHtml(final String html, final String macAddress, final String logoBase64, final String qrCodeText, final PluginCall call) {
         final WebView webView = new WebView(context);
         webView.getSettings().setJavaScriptEnabled(true);
