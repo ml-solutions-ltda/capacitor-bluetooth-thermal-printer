@@ -2,11 +2,11 @@
 import PackageDescription
 
 let package = Package(
-    name: "CapacitorCommunityPrintThermal",
+    name: "PrintThermal",
     platforms: [.iOS(.v14)],
     products: [
         .library(
-            name: "CapacitorCommunityPrintThermal",
+            name: "PrintThermal",
             targets: ["PrintThermalPlugin"])
     ],
     dependencies: [
