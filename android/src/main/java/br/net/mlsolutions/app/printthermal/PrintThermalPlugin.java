@@ -7,16 +7,34 @@ import com.getcapacitor.Plugin;
 
 import com.getcapacitor.JSObject;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 
 @CapacitorPlugin(name = "PrintThermal")
 public class PrintThermalPlugin extends Plugin {
 
     @PluginMethod
     public void listPrinters(PluginCall call) {
-        PrintThermal printer = new PrintThermal(getContext());
-        JSObject result = printer.listPrinters(call);
+        @PluginMethod
+        public void listPrinters(PluginCall call) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.BLUETOOTH_CONNECT)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.BLUETOOTH_CONNECT}, 1001);
+                    call.reject("BLUETOOTH_CONNECT permission is required");
+                    return;
+                }
+            }
 
-        call.resolve(result);
+            PrintThermal printer = new PrintThermal(getContext());
+            JSObject result = printer.listPrinters(call);
+            call.resolve(result);
+        }
     }
 
     @PluginMethod
