@@ -24,6 +24,11 @@ import com.getcapacitor.JSObject;
 import com.getcapacitor.JSArray;
 import java.util.Set;
 
+import android.os.Handler;
+import android.os.Looper;
+
+import com.getcapacitor.PluginCall;
+
 public class PrintThermal {
     private final Context context;
 
