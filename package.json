@@ -1,5 +1,5 @@
 {
-  "name": "@capacitor-community/print-thermal",
+  "name": "@mlsolutions/print-thermal",
   "version": "0.0.1",
   "description": "Plugin de Impressão Térmica para Capacitor (via Bluetooth)",
   "main": "dist/plugin.cjs.js",

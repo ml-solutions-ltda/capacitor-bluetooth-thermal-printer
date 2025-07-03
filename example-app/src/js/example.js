@@ -1,4 +1,4 @@
-import { PrintThermalPlugin } from '@capacitor-community/print-thermal';
+import { PrintThermalPlugin } from '@mlsolutions/print-thermal';
 
 window.testEcho = () => {
     const inputValue = document.getElementById("echoInput").value;

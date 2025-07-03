@@ -1,11 +1,11 @@
-# @capacitor-community/print-thermal
+# @mlsolutions/print-thermal
 
 Plugin de Impressão Térmica para Capacitor (via Bluetooth)
 
 ## Install
 
 ```bash
-npm install @capacitor-community/print-thermal
+npm install @mlsolutions/print-thermal
 npx cap sync
 ```
 
